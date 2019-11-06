@@ -3,13 +3,33 @@
 </script>
 
 <style>
-	h1 {
-		color: purple;
-	}
+td {
+  border: 1px solid #ccc;
+}
 </style>
 
 {#if !items}
 <p>Please wait, loading data...</p>
 {:else}
-<p>Showing the items</p>
+
+  <table>
+    <tr>
+      <th>userId</th>
+      <th>id</th>
+      <th>title</th>
+      <th>completed</th>
+    </tr>
+
+    {#each items as item}
+    <tr>
+      <td>{item.userId}</td>
+      <td>{item.id}</td>
+      <td>{item.title}</td>
+      <td>{item.completed}</td>
+    </tr>
+    {/each}
+
+  </table>
+
+
 {/if}
