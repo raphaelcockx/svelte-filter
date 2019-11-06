@@ -1,5 +1,5 @@
 <script>
-	export let name;
+	export let items
 </script>
 
 <style>
@@ -8,4 +8,8 @@
 	}
 </style>
 
-<h1>Hello {name}!</h1>
+{#if !items}
+<p>Please wait, loading data...</p>
+{:else}
+<p>Showing the items</p>
+{/if}
