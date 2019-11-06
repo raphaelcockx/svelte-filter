@@ -20,7 +20,7 @@ td {
       <th>completed</th>
     </tr>
 
-    {#each items as item}
+    {#each items as item (item.id)}
     <tr>
       <td>{item.userId}</td>
       <td>{item.id}</td>
