@@ -1,16 +1,28 @@
 <script>
-	export let items
+  export let items
+  let showOnlyCompleted = false
+  $: filteredItems = showOnlyCompleted ? items.filter(item => item.completed) : items
+
+  function toggleCompleted() {
+    showOnlyCompleted = !showOnlyCompleted
+  }
 </script>
 
 <style>
 td {
   border: 1px solid #ccc;
 }
+
+button {
+  margin-bottom: 18px;
+}
 </style>
 
 {#if !items}
 <p>Please wait, loading data...</p>
 {:else}
+
+  <button on:click={toggleCompleted}>{#if showOnlyCompleted}Show all{:else}Show only completed{/if}</button>
 
   <table>
     <tr>
@@ -20,7 +32,7 @@ td {
       <th>completed</th>
     </tr>
 
-    {#each items as item (item.id)}
+    {#each filteredItems as item (item.id)}
     <tr>
       <td>{item.userId}</td>
       <td>{item.id}</td>
