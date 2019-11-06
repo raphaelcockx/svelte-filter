@@ -1,10 +1,10 @@
-import App from './App.svelte';
+import FilterApp from './FilterApp.svelte'
 
-const app = new App({
-	target: document.body,
-	props: {
-		name: 'world'
-	}
-});
+const filterApp = new FilterApp({
+  target: document.querySelector('#filterApp'),
+  props: {
+    name: 'world'
+  }
+})
 
-export default app;
+export default filterApp
