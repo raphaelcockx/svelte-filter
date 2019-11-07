@@ -1,28 +1,42 @@
 <script>
   export let items
-  let showOnlyCompleted = false
-  $: filteredItems = showOnlyCompleted ? items.filter(item => item.completed) : items
+
+  let showCompleted = false
+  let showUser = null
+
+  $: filteredItems = (function() {
+    var filteredItems = items
+
+    if(filteredItems) {
+      if(!showCompleted) {
+        filteredItems = filteredItems.filter(item => !item.completed)
+      }
+
+      if(showUser) {
+        filteredItems = filteredItems.filter(item => item.userId === showUser)
+      }
+    }
+
+    return filteredItems
+  })()
 
   function toggleCompleted() {
-    showOnlyCompleted = !showOnlyCompleted
+    showCompleted = !showCompleted
   }
-</script>
+ </script>
 
 <style>
 td {
   border: 1px solid #ccc;
 }
-
-button {
-  margin-bottom: 18px;
-}
 </style>
 
-{#if !items}
-<p>Please wait, loading data...</p>
+{#if !filteredItems}
+  <p>Please wait, loading data...</p>
 {:else}
+  <p>Show items for user <input type=number bind:value={showUser} /></p>
 
-  <button on:click={toggleCompleted}>{#if showOnlyCompleted}Show all{:else}Show only completed{/if}</button>
+  <p><input type=checkbox bind:checked={showCompleted}>Show completed items</p>
 
   <table>
     <tr>
@@ -42,6 +56,4 @@ button {
     {/each}
 
   </table>
-
-
 {/if}
